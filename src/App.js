@@ -1,6 +1,10 @@
+import {Input} from "./components/elements/Input";
+
 function App() {
   return (
-        <div>Hello Kanban App</div>
+      <div className="bg-gray-500 p-4">
+        <Input />
+      </div>
   )
 }
 
