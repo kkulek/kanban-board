@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import {Input} from "../elements/Input";
 import {Label} from "../elements/Label";
 import {Button} from "../elements/Button";
+import {v4 as uuidv4} from "uuid";
 
 export function AddTask(){
     const [input, setInput] = useState({
         title: '',
         description: '',
         subtasks: [],
-        id: '',
+        id: uuidv4(),
         column: ''
     });
 
@@ -19,6 +20,7 @@ export function AddTask(){
             ...prevState,
             [name]: value
         }))
+        console.log(input)
     }
 
     return (
