@@ -4,23 +4,30 @@ import {Label} from "../elements/Label";
 import {Button} from "../elements/Button";
 import {v4 as uuidv4} from "uuid";
 
-export function AddTask(){
-    const [input, setInput] = useState({
+export function AddTask({addToTaskList}){
+    const DEFAULT_TASK = {
         title: '',
         description: '',
         subtasks: [],
-        id: uuidv4(),
+        id: '',
         column: ''
-    });
+    }
+
+    const [input, setInput] = useState(DEFAULT_TASK);
 
     function handleInput(event) {
         const {name, value} = event.target
 
         setInput(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: value,
+            id: uuidv4()
         }))
-        console.log(input)
+    }
+
+    function handleSubmit(event) {
+        addToTaskList(input);
+        setInput(DEFAULT_TASK)
     }
 
     return (
@@ -40,7 +47,7 @@ export function AddTask(){
         <Input name="subtasks" value={input.subtasks} placeholder="e.g. Write e-mail body"
                onChange={handleInput}/>
 
-        <Button type="submit" cta="Create Task" color="blue"/>
+        <Button type="submit" cta="Create Task" color="blue" submit={handleSubmit}/>
     </form>
     )
 }
