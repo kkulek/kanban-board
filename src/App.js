@@ -1,9 +1,9 @@
-import {Input} from "./components/elements/Input";
+import {AddTask} from "./components/tasks/AddTask";
 
 function App() {
   return (
       <div className="bg-gray-500 p-4">
-        <Input />
+        <AddTask />
       </div>
   )
 }
