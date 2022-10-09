@@ -8,7 +8,8 @@ export function SmallTaskCard({taskList}) {
         setShowTask(true)
     }
 
-    function handleOnClose() {
+    function handleOnClose(event) {
+        if (event.target.id === 'task-modal')
         setShowTask(false)
     }
 
@@ -24,7 +25,7 @@ export function SmallTaskCard({taskList}) {
                             <p className="font-light">{task.description}</p>
                         </div>
                         {showTask && (
-                                <div key={task.title} onClick={handleOnClose} className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm
+                                <div id="task-modal" key={task.title} onClick={handleOnClose} className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm
                                     flex justify-center items-center">
                                     <div className="bg-white p-2 rounded">
                                         <h3>Tytuł: {task.title}</h3>
@@ -32,7 +33,6 @@ export function SmallTaskCard({taskList}) {
                                         <p>ID: {task.id}</p>
                                         <p>Subtask: {task.subtasks}</p>
                                         <h1>asd</h1>
-                                        <button onClick={handleOnClose}>X</button>
                                     </div>
                                 </div>
                         )}
