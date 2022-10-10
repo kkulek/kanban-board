@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {DisplayTaskModal} from "./DisplayTaskModal";
 import {SmallTaskCard} from "./SmallTaskCard";
-import {deleteDoc, doc, updateDoc} from "firebase/firestore";
+import {deleteDoc, doc} from "firebase/firestore";
 import {db} from "../../firebase";
 
 export function Task({taskList}) {
@@ -22,7 +22,6 @@ export function Task({taskList}) {
         await deleteDoc(doc(db, "todos", id))
         setShowTask(false)
     }
-
 
     return (
         <>
