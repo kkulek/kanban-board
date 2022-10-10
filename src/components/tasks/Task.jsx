@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {DisplayTaskModal} from "./DisplayTaskModal";
 import {SmallTaskCard} from "./SmallTaskCard";
+import {deleteDoc, doc, updateDoc} from "firebase/firestore";
+import {db} from "../../firebase";
 
 export function Task({taskList}) {
     const [showTask, setShowTask] = useState(false);
@@ -16,15 +18,20 @@ export function Task({taskList}) {
             setShowTask(false)
     }
 
+    const handleDelete = async (id) => {
+        await deleteDoc(doc(db, "todos", id))
+        setShowTask(false)
+    }
+
+
     return (
         <>
             <div className="flex-col">
                 {taskList.map(task => (
-                    <SmallTaskCard key={task.id} task={task}
-                                   openTaskInModal={openTaskInModal}/>
+                    <SmallTaskCard key={task.id} task={task} openTaskInModal={openTaskInModal}/>
                 ))}
                 {showTask && (
-                    <DisplayTaskModal handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
+                    <DisplayTaskModal handleDelete={handleDelete}  handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
                 )}
             </div>
         </>
