@@ -2,17 +2,17 @@ import React, {useState} from "react";
 import {DisplayTask} from "./DisplayTask";
 
 export function SmallTaskCard({taskList}) {
-    const [showTask, setShowTask] = useState(false);
+    const [showTaskInModal, setShowTaskInModal] = useState(false);
     const [clickedTask, setClickedTask] = useState(null);
 
     function openTaskInModal(task) {
         setClickedTask(task)
-        setShowTask(true)
+        setShowTaskInModal(true)
     }
 
-    function handleOnClose(event) {
+    function handleOnCloseModal(event) {
         if (event.target.id === 'task-modal')
-        setShowTask(false)
+        setShowTaskInModal(false)
     }
 
     return (
@@ -26,8 +26,8 @@ export function SmallTaskCard({taskList}) {
                             <h3 className="font-bold">{task.input.title}</h3>
                             <p className="font-light">{task.input.description}</p>
                         </div>
-                        {showTask && (
-                            <DisplayTask handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
+                        {showTaskInModal && (
+                            <DisplayTask handleOnCloseModal={handleOnCloseModal} task={clickedTask} showTask={showTaskInModal} />
                         )}
                     </>
                 ))}
