@@ -4,12 +4,15 @@ import {Label} from "../elements/Label";
 import {Button} from "../elements/Button";
 import {v4 as uuidv4} from "uuid";
 
+import {db} from "../../firebase";
+import {collection, addDoc} from 'firebase/firestore'
+
+
 export function AddTask({addToTaskList}){
     const DEFAULT_TASK = {
         title: '',
         description: '',
         subtasks: [],
-        id: '',
         column: ''
     }
 
@@ -25,10 +28,22 @@ export function AddTask({addToTaskList}){
         }))
     }
 
-    function handleSubmit(event) {
-        addToTaskList(input);
-        setInput(DEFAULT_TASK)
+    const handleSubmit = async (e) => {
+        // e.preventDefault();
+        if (input !== "") {
+            await addDoc(collection(db, "todos"), {
+                input,
+                completed: false,
+            });
+            addToTaskList(input);
+            setInput(DEFAULT_TASK);
+        }
     }
+
+    // function handleSubmit() {
+    //     addToTaskList(input);
+    //     setInput(DEFAULT_TASK)
+    // }
 
     return (
     <form>
@@ -44,8 +59,8 @@ export function AddTask({addToTaskList}){
         <Input name="subtasks" value={input.subtasks} placeholder="e.g. Choose a title"
                onChange={handleInput}/>
 
-        <Input name="subtasks" value={input.subtasks} placeholder="e.g. Write e-mail body"
-               onChange={handleInput}/>
+        {/*<Input name="subtasks" value={input.subtasks} placeholder="e.g. Write e-mail body"*/}
+        {/*       onChange={handleInput}/>*/}
 
         <Button type="submit" cta="Create Task" color="blue" submit={handleSubmit}/>
     </form>
