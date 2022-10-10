@@ -19,18 +19,16 @@ export function SmallTaskCard({taskList}) {
         <>
             <div className="flex-col">
                 {taskList.map(task => (
-                    <>
-                        <div key={task.input.id}
+                        <div key={task.id}
                              onClick={() => openTaskInModal(task)}
                              className="px-4 py-2 my-5 bg-blue-400 cursor-pointer">
                             <h3 className="font-bold">{task.input.title}</h3>
                             <p className="font-light">{task.input.description}</p>
                         </div>
-                        {showTask && (
-                            <DisplayTask handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
-                        )}
-                    </>
                 ))}
+                {showTask && (
+                    <DisplayTask handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
+                )}
             </div>
         </>
     )
