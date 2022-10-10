@@ -1,6 +1,6 @@
 import React from "react";
 
-export function DisplayTask({handleOnClose, task, showTask}) {
+export function DisplayTaskModal({handleOnClose, task, showTask}) {
     if(!showTask) return null;
 
     return (
