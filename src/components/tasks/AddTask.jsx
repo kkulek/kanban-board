@@ -9,10 +9,10 @@ import {collection, addDoc} from 'firebase/firestore'
 
 export function AddTask({addToTaskList}){
     const DEFAULT_TASK = {
-        title: '',
-        description: '',
-        subtasks: [],
-        column: ''
+            title: '',
+            description: '',
+            subtasks: [],
+            column: ''
     }
 
     const [input, setInput] = useState(DEFAULT_TASK);
@@ -33,7 +33,6 @@ export function AddTask({addToTaskList}){
                 input,
                 completed: false,
             });
-            addToTaskList(input);
             setInput(DEFAULT_TASK);
         }
     }
