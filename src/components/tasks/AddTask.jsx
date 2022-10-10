@@ -7,7 +7,7 @@ import {v4 as uuidv4} from "uuid";
 import {db} from "../../firebase";
 import {collection, addDoc} from 'firebase/firestore'
 
-export function AddTask({addToTaskList}){
+export function AddTask(){
     const DEFAULT_TASK = {
             title: '',
             description: '',
