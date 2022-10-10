@@ -23,13 +23,9 @@ function App() {
         return () => unsub();
     }, []);
 
-    function addToTaskList(newTask) {
-        setTaskList(prevState => [...prevState, newTask])
-    }
-
     return (
         <div className="bg-gray-500 p-4">
-            <AddTask addToTaskList={addToTaskList}/>
+            <AddTask/>
             <SmallTaskCard taskList={taskList}/>
         </div>
     )
