@@ -1,6 +1,6 @@
 import {AddTask} from "./components/tasks/AddTask";
 import {useEffect, useState} from "react";
-import {SmallTaskCard} from "./components/tasks/SmallTaskCard";
+import {Task} from "./components/tasks/Task";
 import {db} from "./firebase";
 import {collection, query, onSnapshot} from 'firebase/firestore'
 
@@ -26,7 +26,7 @@ function App() {
     return (
         <div className="bg-gray-500 p-4">
             <AddTask/>
-            <SmallTaskCard taskList={taskList}/>
+            <Task taskList={taskList}/>
         </div>
     )
 }
