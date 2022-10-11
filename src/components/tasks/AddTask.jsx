@@ -29,17 +29,21 @@ export function AddTask() {
     }
 
     const handleSubtaskChange = index => event => {
-        const newSubtasks = input.subtasks.map((subtask, sindex) => {
-            if (index !== sindex) return subtask;
+        const newSubtasks = input.subtasks.map((subtask, subtaskIndex) => {
+            if (index !== subtaskIndex) return subtask;
             return {...subtask, name: event.target.value, id: uuidv4(), completed: false};
         });
 
         setInput(prevState => (
-            {
-                ...prevState,
-                subtasks: newSubtasks
-            }
+            {...prevState, subtasks: newSubtasks}
         ))
+    }
+
+    const handleRemoveSubtask = index => () => {
+        setInput(prevState => ({
+            ...prevState,
+            subtasks: input.subtasks.filter((_, subtaskIndex) => index !== subtaskIndex)
+        }))
     }
 
     function handleAddSubtask() {
@@ -72,10 +76,12 @@ export function AddTask() {
 
             <Label label="Subtasks" htmlFor="subtasks"/>
             {input.subtasks.map((subtask, index) => (
-                <Input key={index} type="text" placeholder={`Subtask ${index + 1}`}
+                <div key={index}>
+                <Input type="text" placeholder={`Subtask ${index + 1}`}
                        value={subtask.name}
-                       onChange={handleSubtaskChange(index)}
-                />
+                       onChange={handleSubtaskChange(index)}/>
+                <button type="button" onClick={handleRemoveSubtask(index)}>X</button>
+                </div>
             ))}
             <button type="button" onClick={handleAddSubtask}>Add subtask</button>
 
