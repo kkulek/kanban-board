@@ -9,7 +9,7 @@ export function DisplayTaskModal({task, handleOnClose, showTask, handleDelete}) 
             <div className="bg-white p-2 rounded">
                 <h3>Tytuł: {task.input.title}</h3>
                 <p>Opis: {task.input.description}</p>
-                <p>Subtask: {task.input.subtasks}</p>
+                {/*<p>Subtask: {task.input.subtasks}</p>*/}
                 <button onClick={() => handleDelete(task.id)}>Delete</button>
             </div>
         </div>

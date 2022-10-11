@@ -6,7 +6,7 @@ export function Button({cta, type, color, submit}){
         e.preventDefault();
         submit()
     }}
-            className={`bg-${color}-500 rounded text-white px-2 py-1`}
+            className={`bg-${color}-500 rounded-2xl text-white px-3 py-2 w-full`}
     >{cta}</button>
     )
 }
