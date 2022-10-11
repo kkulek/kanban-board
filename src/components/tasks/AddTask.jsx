@@ -6,6 +6,7 @@ import {v4 as uuidv4} from "uuid";
 
 import {db} from "../../firebase";
 import {collection, addDoc} from 'firebase/firestore'
+import {Subtask} from "./Subtask";
 
 export function AddTask(){
     const DEFAULT_TASK = {
@@ -48,8 +49,10 @@ export function AddTask(){
                onChange={handleInput}/>
 
         <Label label="Subtasks" htmlFor="subtasks"/>
-        <Input name="subtasks" value={input.subtasks} placeholder="e.g. Choose a title"
-               onChange={handleInput}/>
+        {/*<Input name="subtasks" value={input.subtasks} placeholder="e.g. Choose a title"*/}
+        {/*       onChange={handleInput}/>*/}
+
+        <Subtask name="subtasks" onChange={handleInput} />
 
         <Button type="submit" cta="Create Task" color="blue" submit={handleSubmit}/>
     </form>
