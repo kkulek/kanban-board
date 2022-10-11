@@ -43,7 +43,10 @@ export function AddTask() {
     }
 
     function handleAddSubtask() {
-        setInput({subtasks: input.subtasks.concat({ name: "" })});
+        setInput(prevState => ({
+            ...prevState,
+            subtasks: input.subtasks.concat({name: ""})
+        }))
     }
 
     const handleSubmit = async () => {
@@ -74,11 +77,9 @@ export function AddTask() {
                        onChange={handleSubtaskChange(index)}
                 />
             ))}
-
             <button type="button" onClick={handleAddSubtask}>Add subtask</button>
 
             {/*<Subtask name="subtasks" onChange={handleInput}/>*/}
-
 
             <Button type="submit" cta="Create Task" color="blue" submit={handleSubmit}/>
         </form>
