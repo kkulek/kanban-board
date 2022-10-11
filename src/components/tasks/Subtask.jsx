@@ -15,18 +15,18 @@ export function Subtask({name, onChange, value}) {
 
     return (
         <>
-            <Input name={name + 1}
+            <Input name={name}
                    onChange={onChange}
                    value={value}
                    placeholder="e.g. Choose a title"/>
 
-            <Input name={name + 2}
+            <Input name={name}
                    onChange={onChange}
                    value={value}
                    placeholder="e.g. Write an e-mail body"/>
 
             {addSubtask.map((subtask, index) => (
-                    <Input key={index} name={name + (index + 3)} onChange={onChange} value={value} placeholder="Another subtask." />
+                    <Input key={index} name={name} onChange={onChange} value={value} placeholder="Another subtask." />
             ))}
             <button onClick={handleOnClick}>Add subtask</button>
         </>
