@@ -39,17 +39,17 @@ export function AddTask() {
         ))
     }
 
-    const handleRemoveSubtask = index => () => {
-        setInput(prevState => ({
-            ...prevState,
-            subtasks: input.subtasks.filter((_, subtaskIndex) => index !== subtaskIndex)
-        }))
-    }
-
     function handleAddSubtask() {
         setInput(prevState => ({
             ...prevState,
             subtasks: input.subtasks.concat({name: ""})
+        }))
+    }
+
+    const handleRemoveSubtask = index => () => {
+        setInput(prevState => ({
+            ...prevState,
+            subtasks: input.subtasks.filter((_, subtaskIndex) => index !== subtaskIndex)
         }))
     }
 
