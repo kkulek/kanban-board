@@ -30,7 +30,7 @@ export function Task({taskList}) {
                     <SmallTaskCard key={task.id} task={task} openTaskInModal={openTaskInModal}/>
                 ))}
                 {showTask && (
-                    <DisplayTaskModal handleDelete={handleDelete}  handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
+                    <DisplayTaskModal handleDelete={handleDelete} handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
                 )}
             </div>
         </>
