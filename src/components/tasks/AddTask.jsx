@@ -6,7 +6,6 @@ import {v4 as uuidv4} from "uuid";
 
 import {db} from "../../firebase";
 import {collection, addDoc} from 'firebase/firestore'
-import {Subtask} from "./Subtask";
 
 export function AddTask() {
     const DEFAULT_TASK = {
