@@ -7,6 +7,11 @@ import {db} from "../../firebase";
 export function Task({taskList}) {
     const [showTask, setShowTask] = useState(false);
     const [clickedTask, setClickedTask] = useState(null);
+    const [editTask, setEditTask] = useState(false);
+
+    function handleEdit() {
+        setEditTask(true)
+    }
 
     function openTaskInModal(task) {
         setClickedTask(task)
@@ -30,7 +35,7 @@ export function Task({taskList}) {
                     <SmallTaskCard key={task.id} task={task} openTaskInModal={openTaskInModal}/>
                 ))}
                 {showTask && (
-                    <DisplayTaskModal handleDelete={handleDelete} handleOnClose={handleOnClose} task={clickedTask} showTask={showTask} />
+                    <DisplayTaskModal handleDelete={handleDelete} handleOnClose={handleOnClose} task={clickedTask} showTask={showTask}/>
                 )}
             </div>
         </>
