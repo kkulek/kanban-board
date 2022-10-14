@@ -1,10 +1,25 @@
 import React, {useState} from "react";
 import {v4 as uuidv4} from "uuid";
-import {addDoc, collection} from "firebase/firestore";
-import {db} from "../firebase";
+import {addDoc, collection, updateDoc} from "firebase/firestore";
+import {db} from "../../firebase";
 
-export function useForm(){
-    const DEFAULT_TASK = {
+export function useForm(task){
+    let DEFAULT_TASK;
+
+    task ? DEFAULT_TASK = {
+            title: task.input.title,
+            description: task.input.description,
+            subtasks:
+                task.input.subtasks.map(subtask => {
+                    return {
+                        name: subtask.name
+                    }
+                }),
+            column: '',
+        id: task.input.id
+        }
+
+        : DEFAULT_TASK = {
         title: '',
         description: '',
         subtasks: [{name: ""}, {name: ""}],
@@ -49,7 +64,7 @@ export function useForm(){
     }
 
     const handleSubmit = async () => {
-        if (input !== "") {
+       if (input !== "") {
             await addDoc(collection(db, "todos"), {
                 input,
                 completed: false,
