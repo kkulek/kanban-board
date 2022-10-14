@@ -16,8 +16,8 @@ export function AddTask() {
 
     return (
         <>
+            <button onClick={openAddTaskInModal}>Add Task</button>
             <GlobalProvider>
-                <button onClick={openAddTaskInModal}>Add Task</button>
                 {showAddTask && (
                     <DisplayAddTaskModal
                         handleOnClose={handleOnClose}
