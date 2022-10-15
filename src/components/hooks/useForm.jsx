@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {v4 as uuidv4} from "uuid";
-import {addDoc, collection, updateDoc} from "firebase/firestore";
+import {addDoc, collection, doc, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 
 export function useForm(task) {
@@ -73,9 +73,20 @@ export function useForm(task) {
         }
     }
 
-    const handleEditTask = () => {
-        console.log('abc')
+    const handleEditTask = async (id) => {
+        await updateDoc(doc(db, "todos", id), {
+            input,
+            completed: true,
+        });
     }
 
-    return {input, handleEditTask, handleInput, handleSubtaskChange, handleAddSubtask, handleRemoveSubtask, handleSubmitTask}
+    return {
+        input,
+        handleEditTask,
+        handleInput,
+        handleSubtaskChange,
+        handleAddSubtask,
+        handleRemoveSubtask,
+        handleSubmitTask
+    }
 }

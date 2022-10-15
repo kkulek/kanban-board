@@ -4,7 +4,7 @@ import {Input} from "./Input";
 import {Button} from "./Button";
 import {GlobalContext} from "../GlobalState";
 
-export function Form({editTask}){
+export function Form({editTask, task}){
 
     const {
         input,
@@ -42,8 +42,10 @@ export function Form({editTask}){
             </button>
             <h3>Placeholder for status</h3>
             {editTask
-                ? (<Button type="submit" cta="Edit Task" color="blue" submit={handleEditTask}/>)
-                : (<Button type="submit" cta="Create Task" color="blue" submit={handleSubmitTask}/>)}
+                ? (<Button type="submit" cta="Edit Task" color="blue"
+                           submit={() => handleEditTask(task.id)}/>)
+                : (<Button type="submit" cta="Create Task" color="blue"
+                           submit={handleSubmitTask}/>)}
         </form>
 
     )
