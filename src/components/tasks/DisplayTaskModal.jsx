@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal} from "../elements/Modal";
 import {EditTask} from "./EditTask";
-import {GlobalProvider} from "../../GlobalState";
+import {GlobalProvider} from "../GlobalState";
 
 export function DisplayTaskModal({task, handleOnClose, showTask, handleDelete, editTask, handleEdit}) {
     if (!showTask) return null;

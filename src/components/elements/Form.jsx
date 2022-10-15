@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {Label} from "./Label";
 import {Input} from "./Input";
 import {Button} from "./Button";
-import {GlobalContext} from "../../GlobalState";
+import {GlobalContext} from "../GlobalState";
 
 export function Form({editTask}){
 

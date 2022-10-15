@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {DisplayAddTaskModal} from "./DisplayAddTaskModal";
-import {GlobalProvider} from "../../GlobalState";
+import {GlobalProvider} from "../GlobalState";
 
 export function AddTask() {
     const [showAddTask, setShowAddTask] = useState(false);
