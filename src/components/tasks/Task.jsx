@@ -35,12 +35,13 @@ export function Task({taskList}) {
                     <SmallTaskCard key={task.input.id} task={task} openTaskInModal={openTaskInModal}/>
                 ))}
                 {showTask && (
-                    <DisplayTaskModal handleDelete={handleDelete}
+                    <DisplayTaskModal
                                       handleOnClose={handleOnClose}
                                       task={clickedTask}
                                       showTask={showTask}
                                       handleEdit={handleEdit}
-                                      editTask={editTask}/>
+                                      editTask={editTask}
+                                      handleDelete={handleDelete}/>
                 )}
             </div>
         </>

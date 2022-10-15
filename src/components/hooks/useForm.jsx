@@ -3,7 +3,7 @@ import {v4 as uuidv4} from "uuid";
 import {addDoc, collection, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 
-export function useForm(task){
+export function useForm(task) {
     let DEFAULT_TASK;
 
     task ? DEFAULT_TASK = {
@@ -16,15 +16,15 @@ export function useForm(task){
                     }
                 }),
             column: '',
-        id: task.input.id
+            id: task.input.id
         }
 
         : DEFAULT_TASK = {
-        title: '',
-        description: '',
-        subtasks: [{name: ""}, {name: ""}],
-        column: ''
-    }
+            title: '',
+            description: '',
+            subtasks: [{name: ""}, {name: ""}],
+            column: ''
+        }
 
     const [input, setInput] = useState(DEFAULT_TASK);
 
@@ -63,8 +63,8 @@ export function useForm(task){
         }))
     }
 
-    const handleSubmit = async () => {
-       if (input !== "") {
+    const handleSubmitTask = async () => {
+        if (input !== "") {
             await addDoc(collection(db, "todos"), {
                 input,
                 completed: false,
@@ -73,5 +73,9 @@ export function useForm(task){
         }
     }
 
-    return {input, handleInput, handleSubtaskChange, handleAddSubtask, handleRemoveSubtask, handleSubmit}
+    const handleEditTask = () => {
+        console.log('abc')
+    }
+
+    return {input, handleEditTask, handleInput, handleSubtaskChange, handleAddSubtask, handleRemoveSubtask, handleSubmitTask}
 }

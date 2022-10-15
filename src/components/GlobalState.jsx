@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import {useForm} from "./components/hooks/useForm";
+import {useForm} from "./hooks/useForm";
 
 export const GlobalContext = createContext();
 
