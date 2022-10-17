@@ -31,6 +31,7 @@ export function Task({taskList, status}) {
     }
 
     const handleCheckSubtask = async (subtask, task) => {
+
         const taskId = task.input.id
         const firebaseTaskId = task.id
 
@@ -43,13 +44,11 @@ export function Task({taskList, status}) {
                 })
             })
 
-            const wlasciwyTodo = todosArray.filter(x => x.input.id === taskId)
-            const subtasks = wlasciwyTodo[0].input.subtasks
-            const wlasciwySubtask = wlasciwyTodo[0].input.subtasks.filter(x => x.id === subtask)
-            let targetSubtask = wlasciwySubtask[0]
+            const targetToDo = todosArray.filter(x => x.input.id === taskId)
+            const subtasks = targetToDo[0].input.subtasks
+            const targetSubtask = subtasks.filter(x => x.id === subtask)[0]
             targetSubtask.completed = !targetSubtask.completed
-            const destrukturyzacja = wlasciwyTodo[0]
-            const {completed, input: {column, description, title, id}} = destrukturyzacja
+            const {completed, input: {column, description, title}} = targetToDo[0]
 
             const wyslijTo = async (id) => {
                     await updateDoc(doc(db, "todos", id), {
@@ -66,7 +65,6 @@ export function Task({taskList, status}) {
                     });
             }
             wyslijTo(firebaseTaskId)
-
         });
         return () => unsub();
     }
