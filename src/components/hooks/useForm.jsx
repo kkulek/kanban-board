@@ -59,7 +59,7 @@ export function useForm(task) {
     function handleAddSubtask() {
         setInput(prevState => ({
             ...prevState,
-            subtasks: input.subtasks.concat({name: ""})
+            subtasks: input.subtasks.concat({name: "", completed: false})
         }))
     }
 
@@ -83,7 +83,7 @@ export function useForm(task) {
     const handleEditTask = async (id) => {
         await updateDoc(doc(db, "todos", id), {
             input,
-            completed: true,
+            completed: false,
         });
     }
 

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {DisplayTaskModal} from "./DisplayTaskModal";
 import {SmallTaskCard} from "./SmallTaskCard";
-import {deleteDoc, doc, updateDoc, setDoc} from "firebase/firestore";
+import {deleteDoc, doc, updateDoc, setDoc, query, collection, onSnapshot, addDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 import {Droppable, Draggable} from "react-beautiful-dnd";
+import {v4 as uuidv4} from "uuid";
 
 export function Task({taskList, status}) {
     const [showTask, setShowTask] = useState(false);
@@ -30,9 +31,44 @@ export function Task({taskList, status}) {
     }
 
     const handleCheckSubtask = async (subtask, task) => {
-        console.log(`Subtask: ${subtask}, Task: ${task}`)
-        const targetTask = doc(db, "todos", task)
-        console.log(targetTask)
+        const taskId = task.input.id
+        const firebaseTaskId = task.id
+
+        const q = query(collection(db, "todos"));
+        const unsub = onSnapshot(q, (querySnapshot) => {
+            let todosArray = [];
+            querySnapshot.forEach((doc) => {
+                todosArray.push({
+                    ...doc.data(),
+                })
+            })
+
+            const wlasciwyTodo = todosArray.filter(x => x.input.id === taskId)
+            const subtasks = wlasciwyTodo[0].input.subtasks
+            const wlasciwySubtask = wlasciwyTodo[0].input.subtasks.filter(x => x.id === subtask)
+            let targetSubtask = wlasciwySubtask[0]
+            targetSubtask.completed = !targetSubtask.completed
+            const destrukturyzacja = wlasciwyTodo[0]
+            const {completed, input: {column, description, title, id}} = destrukturyzacja
+
+            const wyslijTo = async (id) => {
+                    await updateDoc(doc(db, "todos", id), {
+                        completed: completed,
+                        input: {
+                            column: column,
+                            description: description,
+                            title: title,
+                            id: uuidv4(),
+                            subtasks: subtasks
+                         }
+                     }).catch(error => {
+                         throw new Error(`Error: ${error}`)
+                    });
+            }
+            wyslijTo(firebaseTaskId)
+
+        });
+        return () => unsub();
     }
 
     return (
@@ -53,18 +89,18 @@ export function Task({taskList, status}) {
                     </ul>
                 )}
             </Droppable>
-                {showTask && (
-                    <DisplayTaskModal
-                        handleOnClose={handleOnClose}
-                        task={clickedTask}
-                        showTask={showTask}
-                        handleEdit={handleEdit}
-                        editTask={editTask}
-                        handleDelete={handleDelete}
-                        handleCheckSubtask={handleCheckSubtask}
+            {showTask && (
+                <DisplayTaskModal
+                    handleOnClose={handleOnClose}
+                    task={clickedTask}
+                    showTask={showTask}
+                    handleEdit={handleEdit}
+                    editTask={editTask}
+                    handleDelete={handleDelete}
+                    handleCheckSubtask={handleCheckSubtask}
 
-                    />
-                )}
+                />
+            )}
         </div>
     )
 }
