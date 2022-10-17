@@ -38,6 +38,13 @@ export function useForm(task) {
         }))
     }
 
+    function handleSelect(event) {
+        setInput(prevState => ({
+            ...prevState,
+            column: event.value
+        }))
+    }
+
     const handleSubtaskChange = index => event => {
         const newSubtasks = input.subtasks.map((subtask, subtaskIndex) => {
             if (index !== subtaskIndex) return subtask;
@@ -65,6 +72,8 @@ export function useForm(task) {
 
     const handleSubmitTask = async () => {
         if (input !== "") {
+            // const status = input.column
+
             await addDoc(collection(db, "todos"), {
                 input,
                 completed: false,
@@ -87,6 +96,7 @@ export function useForm(task) {
         handleSubtaskChange,
         handleAddSubtask,
         handleRemoveSubtask,
-        handleSubmitTask
+        handleSubmitTask,
+        handleSelect
     }
 }
