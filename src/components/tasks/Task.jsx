@@ -49,8 +49,8 @@ export function Task({taskList, status}) {
             targetSubtask.completed = !targetSubtask.completed
             const {completed, input: {column, description, title}} = targetToDo[0]
 
-            const wyslijTo = async (id) => {
-                await updateDoc(doc(db, "todos", id), {
+            const updateTask = async (target) => {
+                await updateDoc(doc(db, "todos", target), {
                     completed: completed,
                     input: {
                         column: column,
@@ -63,7 +63,7 @@ export function Task({taskList, status}) {
                     throw new Error(`Error: ${error}`)
                 });
             }
-            wyslijTo(firebaseTaskId)
+            updateTask(firebaseTaskId)
         });
         return () => unsub();
     }

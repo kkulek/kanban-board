@@ -26,12 +26,15 @@ export function DisplayTaskModal({task, handleOnClose, showTask, handleDelete, e
                             </div>
                         </div>
                         <p className="font-light text-base mt-4 text-gray-300">{task.input.description}</p>
-                        <p className="font-bold mt-4">Subtask ( of {task.input.subtasks.length})</p>
+                        <p className="font-bold mt-4">Subtask (completed  {task.input.subtasks.filter(x => x.completed === true).length} of  {task.input.subtasks.length})</p>
                         {task.input.subtasks.map(subtask => (
                             <div className="mt-2"
                                  key={subtask.name}>
                                 <label className="flex items-center gap-4 bg-gray-800 p-2 text-sm font-bold">
-                                    <input type="checkbox" className="h-4 w-4 rounded-full shadow" onChange={() => handleCheckSubtask(subtask.id, task)}/>
+                                    <input type="checkbox" className="h-4 w-4 rounded-full shadow"
+                                           onChange={() => handleCheckSubtask(subtask.id, task)}
+                                           checked={subtask.completed}
+                                    />
                                     {subtask.name}
                                 </label>
                             </div>
