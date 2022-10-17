@@ -31,7 +31,6 @@ export function Task({taskList, status}) {
     }
 
     const handleCheckSubtask = async (subtask, task) => {
-
         const taskId = task.input.id
         const firebaseTaskId = task.id
 
@@ -51,18 +50,18 @@ export function Task({taskList, status}) {
             const {completed, input: {column, description, title}} = targetToDo[0]
 
             const wyslijTo = async (id) => {
-                    await updateDoc(doc(db, "todos", id), {
-                        completed: completed,
-                        input: {
-                            column: column,
-                            description: description,
-                            title: title,
-                            id: uuidv4(),
-                            subtasks: subtasks
-                         }
-                     }).catch(error => {
-                         throw new Error(`Error: ${error}`)
-                    });
+                await updateDoc(doc(db, "todos", id), {
+                    completed: completed,
+                    input: {
+                        column: column,
+                        description: description,
+                        title: title,
+                        id: uuidv4(),
+                        subtasks: subtasks
+                    }
+                }).catch(error => {
+                    throw new Error(`Error: ${error}`)
+                });
             }
             wyslijTo(firebaseTaskId)
         });
@@ -96,7 +95,6 @@ export function Task({taskList, status}) {
                     editTask={editTask}
                     handleDelete={handleDelete}
                     handleCheckSubtask={handleCheckSubtask}
-
                 />
             )}
         </div>
