@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {DisplayTaskModal} from "./DisplayTaskModal";
 import {SmallTaskCard} from "./SmallTaskCard";
-import {deleteDoc, doc} from "firebase/firestore";
+import {deleteDoc, doc, updateDoc, setDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 import {Droppable, Draggable} from "react-beautiful-dnd";
 
@@ -29,8 +29,10 @@ export function Task({taskList, status}) {
         setShowTask(false)
     }
 
-    function handleTest() {
-        console.log('test')
+    const handleCheckSubtask = async (subtask, task) => {
+        console.log(`Subtask: ${subtask}, Task: ${task}`)
+        const targetTask = doc(db, "todos", task)
+        console.log(targetTask)
     }
 
     return (
@@ -51,15 +53,18 @@ export function Task({taskList, status}) {
                     </ul>
                 )}
             </Droppable>
-            {showTask && (
-                <DisplayTaskModal
-                    handleOnClose={handleOnClose}
-                    task={clickedTask}
-                    showTask={showTask}
-                    handleEdit={handleEdit}
-                    editTask={editTask}
-                    handleDelete={handleDelete}/>
-            )}
+                {showTask && (
+                    <DisplayTaskModal
+                        handleOnClose={handleOnClose}
+                        task={clickedTask}
+                        showTask={showTask}
+                        handleEdit={handleEdit}
+                        editTask={editTask}
+                        handleDelete={handleDelete}
+                        handleCheckSubtask={handleCheckSubtask}
+
+                    />
+                )}
         </div>
     )
 }

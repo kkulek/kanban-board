@@ -72,8 +72,6 @@ export function useForm(task) {
 
     const handleSubmitTask = async () => {
         if (input !== "") {
-            // const status = input.column
-
             await addDoc(collection(db, "todos"), {
                 input,
                 completed: false,
@@ -89,6 +87,10 @@ export function useForm(task) {
         });
     }
 
+    function handleCheckboxChange() {
+        console.log('zmiana checkboxa')
+    }
+
     return {
         input,
         handleEditTask,
@@ -97,6 +99,7 @@ export function useForm(task) {
         handleAddSubtask,
         handleRemoveSubtask,
         handleSubmitTask,
-        handleSelect
+        handleSelect,
+        handleCheckboxChange
     }
 }
