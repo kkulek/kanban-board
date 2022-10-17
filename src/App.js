@@ -7,6 +7,7 @@ import {DragDropContext} from "react-beautiful-dnd";
 
 function App() {
     const [taskList, setTaskList] = useState([]);
+    // const [columns, setColumns] = useState(['todo', 'active', 'done']);
 
     useEffect(() => {
         const q = query(collection(db, "todos"));
@@ -20,11 +21,13 @@ function App() {
                 });
             });
             setTaskList(todosArray)
+            console.log(todosArray)
         });
         return () => unsub();
     }, []);
 
     const handleDragEnd = (result) => {
+        console.log(result)
         if (!result.destination) return;
         const items = Array.from(taskList);
         const [reorderData] = items.splice(result.source.index,1);
@@ -39,13 +42,15 @@ function App() {
                 <DragDropContext onDragEnd={handleDragEnd}>
                         <div className="w-1/3 bg-gray-700 p-2">
                             <h3 className="text-white">todo</h3>
-                            <Task taskList={taskList}/>
+                            <Task taskList={taskList} status="todo"/>
                         </div>
                         <div className="w-1/3 bg-gray-700 p-2">
                             <h3 className="text-white">active</h3>
+                            <Task taskList={taskList} status="active"/>
                         </div>
                         <div className="w-1/3 bg-gray-700 p-2">
                             <h3 className="text-white">done</h3>
+                            <Task taskList={taskList} status="done"/>
                         </div>
                 </DragDropContext>
             </section>
