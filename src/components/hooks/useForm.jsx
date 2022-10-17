@@ -72,8 +72,9 @@ export function useForm(task) {
 
     const handleSubmitTask = async () => {
         if (input !== "") {
-            const status = input.column
-            await addDoc(collection(db, status), {
+            // const status = input.column
+
+            await addDoc(collection(db, "todos"), {
                 input,
                 completed: false,
             });
