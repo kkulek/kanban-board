@@ -31,7 +31,7 @@ export function DisplayTaskModal({task, handleOnClose, showTask, handleDelete, e
                             <div className="mt-2"
                                  key={subtask.name}>
                                 <label className="flex items-center gap-4 bg-gray-800 p-2 text-sm font-bold">
-                                    <input type="checkbox" className="h-4 w-4 rounded-full shadow" onChange={() => handleCheckSubtask(subtask.id, task.id)}/>
+                                    <input type="checkbox" className="h-4 w-4 rounded-full shadow" onChange={() => handleCheckSubtask(subtask.id, task)}/>
                                     {subtask.name}
                                 </label>
                             </div>
