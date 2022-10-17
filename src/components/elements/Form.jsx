@@ -4,6 +4,7 @@ import {Label} from "./Label";
 import {Input} from "./Input";
 import {Button} from "./Button";
 import {GlobalContext} from "../GlobalState";
+import {SelectStatus} from "./SelectStatus";
 
 export function Form({editTask, task}){
 
@@ -18,11 +19,11 @@ export function Form({editTask, task}){
         handleSelect
     } = useContext(GlobalContext)
 
-    const options = [
-        {value: 'todo', label: 'Todo'},
-        {value: 'active', label: 'Active'},
-        {value: 'done', label: 'Done'}
-    ]
+    // const options = [
+    //     {value: 'todo', label: 'Todo'},
+    //     {value: 'active', label: 'Active'},
+    //     {value: 'done', label: 'Done'}
+    // ]
 
     return (
         <form>
@@ -48,11 +49,15 @@ export function Form({editTask, task}){
                     className="block w-full bg-white rounded-2xl px-3 py-2 text-black"
             >+ Add New Subtask
             </button>
-            <Select options={options}
-                    placeholder="Select task status"
-                    name="column"
-                    onChange={handleSelect}
-            />
+            {/*<Select options={options}*/}
+            {/*        placeholder="Select task status"*/}
+            {/*        name="column"*/}
+            {/*        onChange={handleSelect}*/}
+            {/*/>*/}
+
+            <SelectStatus placeholder="Select task status"
+                          handleSelect={handleSelect}/>
+
             {editTask
                 ? (<Button type="submit" cta="Edit Task" color="blue"
                            submit={() => handleEditTask(task.id)}/>)

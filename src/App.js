@@ -7,7 +7,6 @@ import {DragDropContext} from "react-beautiful-dnd";
 
 function App() {
     const [taskList, setTaskList] = useState([]);
-    // const [columns, setColumns] = useState(['todo', 'active', 'done']);
 
     useEffect(() => {
         const q = query(collection(db, "todos"));
@@ -21,7 +20,6 @@ function App() {
                 });
             });
             setTaskList(todosArray)
-            console.log(todosArray)
         });
         return () => unsub();
     }, []);
