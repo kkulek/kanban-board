@@ -1,4 +1,5 @@
 import React, {useContext} from "react";
+import Select from "react-select";
 import {Label} from "./Label";
 import {Input} from "./Input";
 import {Button} from "./Button";
@@ -13,8 +14,15 @@ export function Form({editTask, task}){
         handleAddSubtask,
         handleRemoveSubtask,
         handleEditTask,
-        handleSubmitTask
+        handleSubmitTask,
+        handleSelect
     } = useContext(GlobalContext)
+
+    const options = [
+        {value: 'todo', label: 'Todo'},
+        {value: 'active', label: 'Active'},
+        {value: 'done', label: 'Done'}
+    ]
 
     return (
         <form>
@@ -40,7 +48,11 @@ export function Form({editTask, task}){
                     className="block w-full bg-white rounded-2xl px-3 py-2 text-black"
             >+ Add New Subtask
             </button>
-            <h3>Placeholder for status</h3>
+            <Select options={options}
+                    placeholder="Select task status"
+                    name="column"
+                    onChange={handleSelect}
+            />
             {editTask
                 ? (<Button type="submit" cta="Edit Task" color="blue"
                            submit={() => handleEditTask(task.id)}/>)
