@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {DisplayTaskModal} from "./DisplayTaskModal";
 import {SmallTaskCard} from "./SmallTaskCard";
 import {deleteDoc, doc, updateDoc, setDoc, query, collection, onSnapshot, addDoc} from "firebase/firestore";
@@ -10,7 +10,17 @@ export function Task({taskList, status}) {
     const [showTask, setShowTask] = useState(false);
     const [clickedTask, setClickedTask] = useState(null);
     const [editTask, setEditTask] = useState(false);
+    console.log("Task");
 
+    useEffect(() => {
+        console.log("showTask");
+    }, [showTask]);
+    useEffect(() => {
+        console.log("clickedTask");
+    }, [clickedTask]);
+    useEffect(() => {
+        console.log("editTask");
+    }, [editTask]);
     function handleEdit() {
         setEditTask(true)
     }
@@ -33,12 +43,13 @@ export function Task({taskList, status}) {
     const handleCheckSubtask = async (subtask, task) => {
         const taskId = task.input.id
         const firebaseTaskId = task.id
-
+        console.log("handleCheckSubtask");
         const q = query(collection(db, "todos"));
         const unsub = onSnapshot(q, (querySnapshot) => {
             let todosArray = [];
             querySnapshot.forEach((doc) => {
                 todosArray.push({
+                    //if (doc)
                     ...doc.data(),
                 })
             })
@@ -47,7 +58,10 @@ export function Task({taskList, status}) {
             const subtasks = targetToDo[0].input.subtasks
             const targetSubtask = subtasks.filter(x => x.id === subtask)[0]
             targetSubtask.completed = !targetSubtask.completed
-            const {completed, input: {column, description, title}} = targetToDo[0]
+            const {completed, input: {column, description, title, id}} = targetToDo[0]
+
+            console.log('id')
+            console.log(id)
 
             const updateTask = async (target) => {
                 await updateDoc(doc(db, "todos", target), {
@@ -56,7 +70,7 @@ export function Task({taskList, status}) {
                         column: column,
                         description: description,
                         title: title,
-                        id: uuidv4(),
+                        id: id,
                         subtasks: subtasks
                     }
                 }).catch(error => {
@@ -65,12 +79,15 @@ export function Task({taskList, status}) {
             }
             updateTask(firebaseTaskId)
         });
-        return () => unsub();
+        // return () => unsub();
     }
+
+    console.log('status')
+    console.log(status)
 
     return (
         <div className="flex-col bg-gray-700 p-2">
-            <Droppable droppableId={status + 1}>
+            <Droppable droppableId={status}>
                 {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef}>
                         {taskList.filter(task => task.input.column === status).map((task, index) => (
