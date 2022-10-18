@@ -23,8 +23,8 @@ export function Task({taskList, status}) {
         targetSubtask.completed = !targetSubtask.completed;
         const updateTask = async (target) => {
             await updateDoc(doc(db, "todos", target),
-                targetSubtask
-                ).catch(error => {
+                targetSubtask)
+                .catch(error => {
                 throw new Error(`Error: ${error}`)
             });
         }
