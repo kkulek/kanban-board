@@ -10,17 +10,27 @@ export function Task({taskList, status}) {
     const [showTask, setShowTask] = useState(false);
     const [clickedTask, setClickedTask] = useState(null);
     const [editTask, setEditTask] = useState(false);
+    const[el, setEl] = useState(false);
+    const[sub, setSub] = useState(false);
+    const [idFirebase, setIdFirebase] = useState(null);
+
     console.log("Task");
 
     useEffect(() => {
-        console.log("showTask");
-    }, [showTask]);
-    useEffect(() => {
-        console.log("clickedTask");
-    }, [clickedTask]);
-    useEffect(() => {
-        console.log("editTask");
-    }, [editTask]);
+        console.log("el");
+        const subtasks = el.input.subtasks;
+        const targetSubtask = {...subtasks.filter(x => x.id === sub)};
+        targetSubtask.completed = !targetSubtask.completed;
+        const updateTask = async (target) => {
+            await updateDoc(doc(db, "todos", target),
+                targetSubtask
+                ).catch(error => {
+                throw new Error(`Error: ${error}`)
+            });
+        }
+        updateTask(idFirebase);
+    }, [el]);
+
     function handleEdit() {
         setEditTask(true)
     }
@@ -43,42 +53,19 @@ export function Task({taskList, status}) {
     const handleCheckSubtask = async (subtask, task) => {
         const taskId = task.input.id
         const firebaseTaskId = task.id
+        setIdFirebase(task.id)
         console.log("handleCheckSubtask");
         const q = query(collection(db, "todos"));
         const unsub = onSnapshot(q, (querySnapshot) => {
-            let todosArray = [];
             querySnapshot.forEach((doc) => {
-                todosArray.push({
-                    //if (doc)
-                    ...doc.data(),
-                })
+                if (taskId === doc.data().input.id) {
+                    setEl({...doc.data()});
+                    setSub(subtask);
+                    console.log("znaleziony");
+                }
+                console.log(doc.data().input);
             })
-
-            const targetToDo = todosArray.filter(x => x.input.id === taskId)
-            const subtasks = targetToDo[0].input.subtasks
-            const targetSubtask = subtasks.filter(x => x.id === subtask)[0]
-            targetSubtask.completed = !targetSubtask.completed
-            const {completed, input: {column, description, title, id}} = targetToDo[0]
-
-            console.log('id')
-            console.log(id)
-
-            const updateTask = async (target) => {
-                await updateDoc(doc(db, "todos", target), {
-                    completed: completed,
-                    input: {
-                        column: column,
-                        description: description,
-                        title: title,
-                        id: id,
-                        subtasks: subtasks
-                    }
-                }).catch(error => {
-                    throw new Error(`Error: ${error}`)
-                });
-            }
-            updateTask(firebaseTaskId)
-        });
+        })
         // return () => unsub();
     }
 
