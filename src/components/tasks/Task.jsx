@@ -10,25 +10,27 @@ export function Task({taskList, status}) {
     const [showTask, setShowTask] = useState(false);
     const [clickedTask, setClickedTask] = useState(null);
     const [editTask, setEditTask] = useState(false);
-    const[el, setEl] = useState(false);
-    const[sub, setSub] = useState(false);
+    const [el, setEl] = useState(false);
+    const [sub, setSub] = useState(false);
     const [idFirebase, setIdFirebase] = useState(null);
 
     console.log("Task");
 
     useEffect(() => {
-        console.log("el");
-        const subtasks = el.input.subtasks;
-        const targetSubtask = {...subtasks.filter(x => x.id === sub)};
-        targetSubtask.completed = !targetSubtask.completed;
-        const updateTask = async (target) => {
-            await updateDoc(doc(db, "todos", target),
-                targetSubtask)
-                .catch(error => {
-                throw new Error(`Error: ${error}`)
-            });
-        }
-        updateTask(idFirebase);
+        console.log('El:')
+        console.log(el)
+        // console.log("el");
+        // const subtasks = el.input.subtasks;
+        // const targetSubtask = {...subtasks.filter(x => x.id === sub)};
+        // targetSubtask.completed = !targetSubtask.completed;
+        // const updateTask = async (target) => {
+        //     await updateDoc(doc(db, "todos", target),
+        //         targetSubtask
+        //     ).catch(error => {
+        //         throw new Error(`Error: ${error}`)
+        //     });
+        // }
+        // updateTask(idFirebase);
     }, [el]);
 
     function handleEdit() {
@@ -62,6 +64,7 @@ export function Task({taskList, status}) {
                     setEl({...doc.data()});
                     setSub(subtask);
                     console.log("znaleziony");
+                    console.log(subtask)
                 }
                 console.log(doc.data().input);
             })
@@ -73,7 +76,7 @@ export function Task({taskList, status}) {
     console.log(status)
 
     return (
-        <div className="flex-col bg-gray-700 p-2">
+        <div className="flex-col">
             <Droppable droppableId={status}>
                 {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef}>
