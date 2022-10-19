@@ -4,6 +4,7 @@ import {Task} from "./components/tasks/Task";
 import {db} from "./firebase";
 import {collection, query, onSnapshot} from 'firebase/firestore';
 import {DragDropContext} from "react-beautiful-dnd";
+import {Header} from "./components/elements/Header";
 
 function App() {
     const [taskList, setTaskList] = useState([]);
@@ -34,24 +35,24 @@ function App() {
     }
 
     return (
-        <div className="bg-gray-500 p-4">
-            <AddTask/>
-            <section className="flex gap-4">
+        <div className="bg-gray-800 p-8 min-h-screen">
+            <Header />
+            <main className="flex-col tablet:flex-row laptop:flex gap-4 overflow-x-auto">
                 <DragDropContext onDragEnd={handleDragEnd}>
-                        <div className="w-1/3 bg-gray-700 p-2">
-                            <h3 className="text-white">todo</h3>
+                        <div className="w-full laptop:w-1/3">
+                            <h3 className="text-white font-black text-lg">TODO</h3>
                             <Task taskList={taskList} status="todo"/>
                         </div>
-                        <div className="w-1/3 bg-gray-700 p-2">
-                            <h3 className="text-white">active</h3>
+                        <div className="w-full laptop:w-1/3">
+                            <h3 className="text-white font-black text-lg">ACTIVE</h3>
                             <Task taskList={taskList} status="active"/>
                         </div>
-                        <div className="w-1/3 bg-gray-700 p-2">
-                            <h3 className="text-white">done</h3>
+                        <div className="w-full laptop:w-1/3">
+                            <h3 className="text-white font-black text-lg">DONE</h3>
                             <Task taskList={taskList} status="done"/>
                         </div>
                 </DragDropContext>
-            </section>
+            </main>
         </div>
     )
 }
