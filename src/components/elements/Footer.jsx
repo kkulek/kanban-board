@@ -1,8 +1,10 @@
 import React from "react";
+import {AddTask} from "../tasks/AddTask";
 
 export function Footer(){
     return (
-    <div></div>
-
+        <footer className="sticky bottom-0 flex justify-center p-6 bg-gray-800">
+            <AddTask/>
+        </footer>
     )
 }
