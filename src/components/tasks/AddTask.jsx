@@ -17,7 +17,7 @@ export function AddTask() {
     return (
         <>
             <button onClick={openAddTaskInModal}
-            className="bg-blue-400 rounded-full text-white px-3 py-1 hover:scale-105 drop-shadow-md">
+            className="bg-blue-500 rounded text-white px-5 py-2 drop-shadow-md ease-linear border-b-4 hover:border-red-300 ease-linear duration-300 sticky top-0">
                 Add New Task
             </button>
             <GlobalProvider>
