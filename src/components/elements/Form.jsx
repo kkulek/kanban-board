@@ -46,7 +46,7 @@ export function Form({editTask, task}){
             ))}
             <button type="button"
                     onClick={handleAddSubtask}
-                    className="block w-full bg-white rounded-2xl px-3 py-2 text-black"
+                    className="block w-full bg-white rounded-2xl px-3 py-2 text-blue-500 mb-5"
             >+ Add New Subtask
             </button>
             {/*<Select options={options}*/}
