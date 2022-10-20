@@ -14,6 +14,7 @@ export function SelectStatus({handleSelect, placeholder}){
                 placeholder={placeholder}
                 name="column"
                 onChange={handleSelect}
+                className="mb-2"
         />
 
     )

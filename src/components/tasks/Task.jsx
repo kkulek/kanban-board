@@ -14,11 +14,11 @@ export function Task({taskList, status}) {
     const [sub, setSub] = useState(false);
     const [idFirebase, setIdFirebase] = useState(null);
 
-    console.log("Task");
+    // console.log("Task");
 
     useEffect(() => {
-        console.log('El:')
-        console.log(el)
+        // console.log('El:')
+        // console.log(el)
         // console.log("el");
         // const subtasks = el.input.subtasks;
         // const targetSubtask = {...subtasks.filter(x => x.id === sub)};
@@ -56,24 +56,24 @@ export function Task({taskList, status}) {
         const taskId = task.input.id
         const firebaseTaskId = task.id
         setIdFirebase(task.id)
-        console.log("handleCheckSubtask");
+        // console.log("handleCheckSubtask");
         const q = query(collection(db, "todos"));
         const unsub = onSnapshot(q, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 if (taskId === doc.data().input.id) {
                     setEl({...doc.data()});
                     setSub(subtask);
-                    console.log("znaleziony");
-                    console.log(subtask)
+                    // console.log("znaleziony");
+                    // console.log(subtask)
                 }
-                console.log(doc.data().input);
+                // console.log(doc.data().input);
             })
         })
         // return () => unsub();
     }
-
-    console.log('status')
-    console.log(status)
+    //
+    // console.log('status')
+    // console.log(status)
 
     return (
         <div className="flex-col">
