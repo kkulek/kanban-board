@@ -6,7 +6,7 @@ import {Button} from "./Button";
 import {GlobalContext} from "../GlobalState";
 import {SelectStatus} from "./SelectStatus";
 
-export function Form({editTask, task}){
+export function Form({editTask, task}) {
 
     const {
         input,
@@ -46,15 +46,9 @@ export function Form({editTask, task}){
             ))}
             <button type="button"
                     onClick={handleAddSubtask}
-                    className="block w-full bg-white rounded-2xl px-3 py-2 text-blue-500 mb-5"
+                    className="block w-full bg-white rounded-2xl px-3 py-1.5 text-blue-500 mb-5"
             >+ Add New Subtask
             </button>
-            {/*<Select options={options}*/}
-            {/*        placeholder="Select task status"*/}
-            {/*        name="column"*/}
-            {/*        onChange={handleSelect}*/}
-            {/*/>*/}
-
             <SelectStatus placeholder="Select task status"
                           handleSelect={handleSelect}/>
 
