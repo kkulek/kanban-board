@@ -38,7 +38,7 @@ function App() {
     return (
         <div className="bg-gray-800 py-2 min-h-screen relative w-full">
             <Header/>
-            <main className="flex-col tablet:flex-row laptop:flex gap-4 overflow-x-auto px-8">
+            <main className="flex-col tablet:flex-row laptop:flex gap-4 overflow-x-auto px-8 min-h-screen">
                 <DragDropContext onDragEnd={handleDragEnd}>
                         <div className="w-full">
                             <h3 className="text-white font-black text-lg mt-5 laptop:mt-3">TODO<span className="font-black ml-0.5 text-blue-500">:</span></h3>
