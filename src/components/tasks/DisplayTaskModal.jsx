@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import {Modal} from "../elements/Modal";
 import {EditTask} from "./EditTask";
 import {GlobalProvider} from "../GlobalState";
-import {Task} from "./Task";
 
 export function DisplayTaskModal({task, handleOnClose, showTask, handleDelete, editTask, handleEdit, handleCheckSubtask}) {
     if (!showTask) return null;
@@ -40,7 +39,6 @@ export function DisplayTaskModal({task, handleOnClose, showTask, handleDelete, e
                                 </label>
                             </div>
                         ))}
-                        <p className="mt-4">Current Status</p>
                     </div>
                 )}
         </Modal>
