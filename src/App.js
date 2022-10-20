@@ -45,7 +45,7 @@ function App() {
                         <Task taskList={taskList} status=""/>
                     </div>
                         <div className="w-full">
-                            <h3 className="text-white font-black text-lg mt-5 laptop:mt-3">TODO<span className="font-black ml-0.5 text-blue-500">:</span></h3>
+                            <h3 className="text-white font-black text-lg mt-10 laptop:mt-3">TODO<span className="font-black ml-0.5 text-blue-500">:</span></h3>
                             <Task taskList={taskList} status="todo"/>
                         </div>
                         <div className="w-full">
