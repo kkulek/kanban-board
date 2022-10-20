@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
 import {addDoc, collection, doc, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase";
@@ -15,14 +15,14 @@ export function useForm(task) {
                         name: subtask.name
                     }
                 }),
-            column: '',
+            column: task.input.column,
             id: task.input.id
         }
 
         : DEFAULT_TASK = {
             title: '',
             description: '',
-            subtasks: [{name: ""}, {name: ""}],
+            subtasks: [],
             column: ''
         }
 
@@ -57,10 +57,12 @@ export function useForm(task) {
     }
 
     function handleAddSubtask() {
-        setInput(prevState => ({
-            ...prevState,
-            subtasks: input.subtasks.concat({name: "", completed: false})
-        }))
+        if (input.subtasks.length < 5) {
+            setInput(prevState => ({
+                ...prevState,
+                subtasks: input.subtasks.concat({name: "", completed: false})
+            }))
+        }
     }
 
     const handleRemoveSubtask = index => () => {
@@ -70,8 +72,30 @@ export function useForm(task) {
         }))
     }
 
+    //
+    // const validate = (values) => {
+    //     const errors = {}
+    //
+    //     if (!values.title.length < 5) {
+    //         errors.title = "Task title is required"
+    //     }
+    //
+    //     return errors
+    // }
+    //
+    //
+    // useEffect(() => {
+    //     if (Object.keys(errors).length === 0 && isSubmit) {
+    //
+    //     }
+    // }, [errors])
+
+
     const handleSubmitTask = async () => {
-        if (input !== "") {
+        // setErrors(validate(input));
+        // setIsSubmit(true)
+
+        if (input.title !== "") {
             await addDoc(collection(db, "todos"), {
                 input,
                 completed: false,
@@ -88,7 +112,7 @@ export function useForm(task) {
     }
 
     function handleCheckboxChange() {
-        console.log('zmiana checkboxa')
+        // console.log('zmiana checkboxa')
     }
 
     return {
