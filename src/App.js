@@ -40,6 +40,10 @@ function App() {
             <Header/>
             <main className="flex-col tablet:flex-row laptop:flex gap-4 overflow-x-auto px-8 min-h-screen">
                 <DragDropContext onDragEnd={handleDragEnd}>
+                    <div className="w-full">
+                        <h3 className="text-white font-black text-lg mt-5 laptop:mt-3">BACKLOG<span className="font-black ml-0.5 text-yellow-500">:</span></h3>
+                        <Task taskList={taskList} status=""/>
+                    </div>
                         <div className="w-full">
                             <h3 className="text-white font-black text-lg mt-5 laptop:mt-3">TODO<span className="font-black ml-0.5 text-blue-500">:</span></h3>
                             <Task taskList={taskList} status="todo"/>
