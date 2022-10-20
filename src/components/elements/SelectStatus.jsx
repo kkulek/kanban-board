@@ -9,13 +9,20 @@ export function SelectStatus({handleSelect, placeholder}){
         {value: 'done', label: 'Done'}
     ]
 
+    const customFontColor = {
+      option: (base) => ({
+            ...base,
+            color: "gray"
+        })
+    }
+
     return (
         <Select options={options}
                 placeholder={placeholder}
                 name="column"
                 onChange={handleSelect}
                 className="mb-2"
+                styles={customFontColor}
         />
-
     )
 }
